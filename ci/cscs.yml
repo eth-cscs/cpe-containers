@@ -1,0 +1,23 @@
+include:
+  - remote: 'https://gitlab.com/cscs-ci/recipes/-/raw/master/templates/v2/.ci-ext.yml'
+
+build cpe gh200:
+  extends: .container-builder-cscs-gh200
+  before_script:
+    - source $VERSION/aarch64/arg_common.txt
+    - source $VERSION/aarch64/$PRGENV/arg.txt
+
+  parallel:
+    matrix:
+      - CPE_VER:
+        - 24.07
+      - PRGENV:
+        - gnu
+        - cray
+      - SLE_VER:
+        - 15.5
+
+  variables:
+    DOCKERFILE: Dockerfile
+    PERSIST_IMAGE_NAME: $CSCS_REGISTRY_PATH/public/$CPE_VER/cpe-$PRGENV:latest
+    DOCKER_BUILD_ARGS: '["PKGS_SYSTEM","PKGS_CUDA", "PKGS_CRAY", "DEFAULT_MODULES", "CPE_VER", "SLE_VER", "RPM_REPO=https://$RPM_USER:$RPM_TOKEN@update1.linux.hpe.com/repo/cpe"]'

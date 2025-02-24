@@ -1,0 +1,10 @@
+#%Module
+#
+# cray-xpmem module
+#
+
+prepend-path PE_PKGCONFIG_PRODUCTS PE_XPMEM
+setenv  PE_XPMEM_PKGCONFIG_LIBS cray-xpmem
+
+setenv  CRAY_XPMEM_INCLUDE_OPTS "-I/usr/include"
+setenv  CRAY_XPMEM_POST_LINK_OPTS "-L/usr/lib64"

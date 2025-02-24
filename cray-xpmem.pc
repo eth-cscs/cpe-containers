@@ -1,0 +1,16 @@
+
+prefix=/usr
+includedir=/usr/include
+libdir=/usr/lib64
+
+cray_whole_archive=-Wl,--whole-archive
+cray_no_whole_archive=-Wl,--no-whole-archive
+
+
+Cflags: -I${includedir}
+Description: XPMEM
+Libs: -L${libdir} -lxpmem
+Libs.private: ${cray_whole_archive} -lxpmem ${cray_no_whole_archive}
+Name: cray-xpmem
+Version: 0.1
+

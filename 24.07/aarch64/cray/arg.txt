@@ -1,0 +1,13 @@
+PKGS_CRAY=(
+    "${PKGS_CRAY_COMMON[@]}"
+    "cpe-prgenv-cray"
+    "cce-18.0.0"
+    "cce-18.0.0-gpu-nvidia"
+    "cray-mpich-8.1.30-cray170"
+    "cray-hdf5-1.14.3.1-cray180"
+    "cray-libsci-acc-24.07.0-cray"
+    "cray-netcdf-4.9.0.13-crayclang180"
+    "cray-parallel-netcdf-1.12.3.13-crayclang180"
+)
+
+DEFAULT_MODULES="craype-arm-grace craype-network-ofi craype xpmem PrgEnv-cray cray-mpich cuda craype-accel-nvidia90"
