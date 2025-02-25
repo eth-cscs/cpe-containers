@@ -1,4 +1,4 @@
-PKGS_CRAY=(
+PKGS_CRAY_ARR=(
     "${PKGS_CRAY_COMMON[@]}"
     "cpe-prgenv-cray"
     "cce-18.0.0"
@@ -10,4 +10,9 @@ PKGS_CRAY=(
     "cray-parallel-netcdf-1.12.3.13-crayclang180"
 )
 
-DEFAULT_MODULES="craype-arm-grace craype-network-ofi craype xpmem PrgEnv-cray cray-mpich cuda craype-accel-nvidia90"
+export DEFAULT_MODULES="craype-arm-grace craype-network-ofi craype xpmem PrgEnv-cray cray-mpich cuda craype-accel-nvidia90"
+
+# export variables as strings
+export PKGS_SYSTEM="${PKGS_SYSTEM_ARR[*]}"
+export PKGS_CUDA="${PKGS_CUDA_ARR[*]}"
+export PKGS_CRAY="${PKGS_CRAY_ARR[*]}"

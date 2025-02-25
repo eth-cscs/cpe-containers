@@ -1,4 +1,4 @@
-PKGS_SYSTEM=(
+PKGS_SYSTEM_ARR=(
     "vim"
     "less"
     "cmake"
@@ -10,11 +10,11 @@ PKGS_SYSTEM=(
     "gzip"
 )
 
-PKGS_CUDA=(
+PKGS_CUDA_ARR=(
     "cuda-toolkit-12-6"
 )
 
-PKGS_CRAY_COMMON=(
+PKGS_CRAY_COMMON_ARR=(
     "craype"
     "lmod_scripts-3.2.1"
     "cray-lmod"

@@ -11,10 +11,10 @@ for type in gnu cray ; do
     podman build \
         -f Dockerfile \
         --format docker \
-        --build-arg PKGS_SYSTEM="${PKGS_SYSTEM[*]}" \
-        --build-arg PKGS_CUDA="${PKGS_CUDA[*]}" \
-        --build-arg PKGS_CRAY="${PKGS_CRAY[*]}" \
-        --build-arg DEFAULT_MODULES="${DEFAULT_MODULES}" \
+        --build-arg PKGS_SYSTEM \
+        --build-arg PKGS_CUDA \
+        --build-arg PKGS_CRAY \
+        --build-arg DEFAULT_MODULES \
         --build-arg RPM_REPO=https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm \
         -t cpe-${type}:latest \
         "${SCRIPT_DIR}"
