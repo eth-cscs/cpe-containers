@@ -1,5 +1,5 @@
 PKGS_CRAY_ARR=(
-    "${PKGS_CRAY_COMMON[@]}"
+    "${PKGS_CRAY_COMMON_ARR[@]}"
     "cpe-prgenv-gnu"
     "cpe-gcc-native-13.2"
     "cray-mpich-8.1.30-gnu123"

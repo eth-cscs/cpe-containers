@@ -1,5 +1,5 @@
 PKGS_CRAY_ARR=(
-    "${PKGS_CRAY_COMMON[@]}"
+    "${PKGS_CRAY_COMMON_ARR[@]}"
     "cpe-prgenv-cray"
     "cce-18.0.0"
     "cce-18.0.0-gpu-nvidia"

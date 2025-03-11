@@ -8,6 +8,7 @@ source 24.07/aarch64/arg_common.txt
 
 for type in gnu cray ; do
     source 24.07/aarch64/${type}/arg.txt
+    echo -e "Building now with args\nPKGS_SYSTEM=$PKGS_SYSTEM\nPKGS_CUDA=$PKGS_CUDA\nPKGS_CRAY=$PKGS_CRAY\nDEFAULT_MODULES=$DEFAULT_MODULES"
     podman build \
         -f Dockerfile \
         --format docker \
