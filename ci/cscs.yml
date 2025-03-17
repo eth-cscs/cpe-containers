@@ -56,6 +56,7 @@ test cpe gh200:
     - ./bin/reframe -C ../cscs-reframe-tests/config/cscs.py -c ../cscs-reframe-tests/checks/ -r --prefix=../reframe-stage -p PrgEnv-ce
   variables:
     CPE_CE: $CSCS_REGISTRY_PATH/public/$ARCH/$CPE_VER/cpe-$PRGENV:$CI_COMMIT_SHORT_SHA
+    RFM_AUTODETECT_METHODS: "cat /etc/xthostname,hostname"
 
 deploy cpe gh200:
   <<: *matrix-conf
