@@ -49,7 +49,13 @@ test cpe gh200:
   extends: .baremetal-runner-daint-gh200
   stage: test
   script:
-    - echo "I should really do some testing for the image at $CSCS_REGISTRY_PATH/public/$ARCH/$CPE_VER/cpe-$PRGENV:$CI_COMMIT_SHORT_SHA"
+    - git clone -b cpe_ce https://github.com/eth-cscs/cscs-reframe-tests.git
+    - git clone https://github.com/reframe-hpc/reframe.git
+    - cd reframe
+    - ./bootstrap.sh
+    - ./bin/reframe -C ../cscs-reframe-tests/config/cscs.py -c ../cscs-reframe-tests/checks/ -r --prefix=../reframe-stage -p PrgEnv-ce
+  variables:
+    CPE_CE: $CSCS_REGISTRY_PATH/public/$ARCH/$CPE_VER/cpe-$PRGENV:$CI_COMMIT_SHORT_SHA
 
 deploy cpe gh200:
   <<: *matrix-conf
