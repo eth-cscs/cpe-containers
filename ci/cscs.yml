@@ -53,10 +53,20 @@ test cpe gh200:
     - git clone https://github.com/reframe-hpc/reframe.git
     - cd reframe
     - ./bootstrap.sh
-    - ./bin/reframe -C ../cscs-reframe-tests/config/cscs.py -c ../cscs-reframe-tests/checks/ -r --prefix=../reframe-stage -p PrgEnv-ce
+    # ensure that it is `jfrog.svc.cscs.ch#` instead of `jfrog.svc.cscs.ch/`
+    - export CPE_CE=$(echo $CPE_CE | sed -e "s|$CSCS_REGISTRY/|$CSCS_REGISTRY#|")
+    - echo "Using CPE_CE=$CPE_CE"
+    - ./bin/reframe -C ../cscs-reframe-tests/config/cscs.py -c ../cscs-reframe-tests/checks/ -r --prefix=$SCRATCH/gitlab-runner/reframe-testing/rfm-$CI_JOB_ID --report-junit=report.xml -p PrgEnv-ce
   variables:
     CPE_CE: $CSCS_REGISTRY_PATH/public/$ARCH/$CPE_VER/cpe-$PRGENV:$CI_COMMIT_SHORT_SHA
     RFM_AUTODETECT_METHODS: "cat /etc/xthostname,hostname"
+  artifacts:
+    when: always
+    paths:
+      - reframe/report.xml
+    reports:
+      junit: reframe/report.xml
+
 
 deploy cpe gh200:
   <<: *matrix-conf
