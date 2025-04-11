@@ -1,5 +1,5 @@
 ARG SLE_VER=15.5
-FROM jfrog.svc.cscs.ch/proxy-dockerhub/opensuse/leap:$SLE_VER
+FROM jfrog.svc.cscs.ch/dockerhub/opensuse/leap:$SLE_VER
 
 ARG CUDA_RPM_REPO=https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa
 ARG CUDA_RPM_REPO_KEY=https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/D42D0685.pub
