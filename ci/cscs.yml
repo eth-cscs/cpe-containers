@@ -59,6 +59,7 @@ test cpe gh200:
   variables:
     CPE_CE: $CSCS_REGISTRY_PATH/public/$ARCH/$CPE_VER/cpe-$PRGENV:$CI_COMMIT_SHORT_SHA
     RFM_AUTODETECT_METHODS: "cat /etc/xthostname,hostname"
+    SLURM_TIMELIMIT: '02:00:00'
   artifacts:
     when: always
     paths:
