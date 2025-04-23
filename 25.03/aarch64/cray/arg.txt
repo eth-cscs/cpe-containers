@@ -1,0 +1,23 @@
+PKGS_CUDA_ARR=(
+    "cuda-toolkit-12-8"
+)
+
+PKGS_CRAY_ARR=(
+    "${PKGS_CRAY_COMMON_ARR[@]}"
+    "cpe-prgenv-cray"
+    "cce-19.0.0"
+    "cce-19.0.0-gpu-nvidia"
+    "cray-mpich-8.1.32-cray170"
+    "cray-mpich-9.0.0-cray170"
+    "cray-hdf5-1.14.3.5-cray180"
+    "cray-libsci-acc-25.03.0-cray"
+    "cray-netcdf-4.9.0.17-crayclang180"
+    "cray-parallel-netcdf-1.12.3.17-cray180"
+)
+
+export DEFAULT_MODULES="craype-arm-grace craype-network-ofi craype xpmem PrgEnv-cray cray-mpich cuda craype-accel-nvidia90"
+
+# export variables as strings
+export PKGS_SYSTEM="${PKGS_SYSTEM_ARR[*]}"
+export PKGS_CUDA="${PKGS_CUDA_ARR[*]}"
+export PKGS_CRAY="${PKGS_CRAY_ARR[*]}"

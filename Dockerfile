@@ -26,10 +26,11 @@ RUN if [[ -n "$PKGS_CUDA" ]] ; then \
 # install cray programmin environment
 ARG PKGS_CRAY
 RUN rpm --import $RPM_REPO/HPE-RPM-PROD-KEY-FIPS.public \
-  && zypper addrepo -f $RPM_REPO/$CPE_VER/base/sle/$SLE_VER/$(uname -m) cpe \
+  && zypper addrepo -f $RPM_REPO/$CPE_VER/base/sle/$SLE_VER cpe \
+  && zypper addrepo -f $RPM_REPO/24.07/base/sle/$SLE_VER/aarch64 cpe-2407 \
   && zypper refresh \
-  && for i in {1..5} ; do zypper install -y $PKGS_CRAY ; done \
-  && zypper rr cpe
+  && for i in {1..5} ; do zypper install -y $PKGS_CRAY && break ; done \
+  && zypper rr cpe cpe-2407
 
 
 # add xpmem pkgconfig - during runtime CE injects xpmem

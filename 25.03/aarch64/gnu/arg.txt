@@ -1,0 +1,18 @@
+PKGS_CRAY_ARR=(
+    "${PKGS_CRAY_COMMON_ARR[@]}"
+    "cpe-prgenv-gnu"
+    "cpe-gcc-native-13.2"
+    "cray-mpich-8.1.32-gnu123"
+    "cray-mpich-9.0.0-gnu123"
+    "cray-hdf5-1.14.3.5-gnu123"
+    "cray-libsci-acc-25.03.0-gnu"
+    "cray-netcdf-4.9.0.17-gnu123"
+    "cray-parallel-netcdf-1.12.3.17-gnu123"
+)
+
+export DEFAULT_MODULES="craype-arm-grace craype-network-ofi craype xpmem PrgEnv-gnu cray-mpich cuda craype-accel-nvidia90"
+
+# export variables as strings
+export PKGS_SYSTEM="${PKGS_SYSTEM_ARR[*]}"
+export PKGS_CUDA="${PKGS_CUDA_ARR[*]}"
+export PKGS_CRAY="${PKGS_CRAY_ARR[*]}"
