@@ -9,7 +9,7 @@ ARG SLE_VER
 
 # install system software
 ARG PKGS_SYSTEM
-RUN for i in {1..5} ; do zypper install -y $PKGS_SYSTEM && break ; done
+RUN for i in {1..5} ; do zypper install --recommends -y $PKGS_SYSTEM && break ; done
 
 # install cuda toolkit
 ARG PKGS_CUDA
@@ -18,7 +18,7 @@ RUN if [[ -n "$PKGS_CUDA" ]] ; then \
       && echo "Using cuda rpm repo=${CUDA_RPM_REPO}" \
       && zypper addrepo -f "${CUDA_RPM_REPO}" cuda \
       && zypper refresh \
-      && for i in {1..5} ; do zypper install -y $PKGS_CUDA && break ; done  \
+      && for i in {1..5} ; do zypper install --recommends -y $PKGS_CUDA && break ; done  \
       && echo "/usr/local/cuda/lib64/stubs" > /etc/ld.so.conf.d/cuda-stubs.conf \
       && ldconfig \
     ; fi
@@ -29,7 +29,7 @@ RUN rpm --import $RPM_REPO/HPE-RPM-PROD-KEY-FIPS.public \
   && zypper addrepo -f $RPM_REPO/$CPE_VER/base/sle/$SLE_VER cpe \
   && zypper addrepo -f $RPM_REPO/24.07/base/sle/$SLE_VER/aarch64 cpe-2407 \
   && zypper refresh \
-  && for i in {1..5} ; do zypper install -y $PKGS_CRAY && break ; done \
+  && for i in {1..5} ; do zypper install --recommends -y $PKGS_CRAY && break ; done \
   && zypper rr cpe cpe-2407
 
 
