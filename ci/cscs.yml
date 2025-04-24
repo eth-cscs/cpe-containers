@@ -13,7 +13,7 @@ stages:
   parallel:
     matrix:
       - CPE_VER:
-        - '24.07'
+#        - '24.07'
         - '25.03'
         PRGENV:
         - gnu
