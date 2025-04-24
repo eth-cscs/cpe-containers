@@ -7,6 +7,7 @@ PKGS_CRAY_ARR=(
     "cpe-prgenv-cray"
     "cce-19.0.0"
     "cce-19.0.0-gpu-nvidia"
+    "cce-19.0.0-pgas-ofi"
     "cray-mpich-8.1.32-cray170"
     "cray-mpich-9.0.0-cray170"
     "cray-hdf5-1.14.3.5-cray180"

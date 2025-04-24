@@ -15,7 +15,7 @@ PKGS_CUDA_ARR=(
 )
 
 PKGS_CRAY_COMMON_ARR=(
-    "craype"
+    "craype-2.7.34"
     "lmod_scripts-3.2.1"
     "cray-lmod"
     "cray-modules-3.2.11.7"
