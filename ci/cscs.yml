@@ -51,7 +51,7 @@ test cpe gh200:
   script:
     - time enroot import -o cpe.sqfs docker://$(echo $CPE_CE | sed -e "s|$CSCS_REGISTRY/|$CSCS_REGISTRY#|")
     - export CPE_CE="$PWD/cpe.sqfs"
-    - git clone -b cpe_ce https://github.com/eth-cscs/cscs-reframe-tests.git
+    - git clone https://github.com/eth-cscs/cscs-reframe-tests.git
     - git clone https://github.com/reframe-hpc/reframe.git
     - cd reframe
     - ./bootstrap.sh
