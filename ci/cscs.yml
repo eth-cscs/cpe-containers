@@ -51,11 +51,11 @@ test cpe gh200:
   script:
     - time enroot import -o cpe.sqfs docker://$(echo $CPE_CE | sed -e "s|$CSCS_REGISTRY/|$CSCS_REGISTRY#|")
     - export CPE_CE="$PWD/cpe.sqfs"
-    - git clone -b cpe_ce https://github.com/eth-cscs/cscs-reframe-tests.git
+    - git clone https://github.com/eth-cscs/cscs-reframe-tests.git
     - git clone https://github.com/reframe-hpc/reframe.git
     - cd reframe
     - ./bootstrap.sh
-    - ./bin/reframe -C ../cscs-reframe-tests/config/cscs.py -c ../cscs-reframe-tests/checks/ -r --prefix=$SCRATCH/gitlab-runner/reframe-testing/rfm-$CI_JOB_ID --report-junit=report.xml -t production -p PrgEnv-ce
+    - ./bin/reframe -C ../cscs-reframe-tests/config/cscs.py -r --prefix=$SCRATCH/gitlab-runner/reframe-testing/rfm-$CI_JOB_ID --report-junit=report.xml --mode=cpe_ce_production
   variables:
     CPE_CE: $CSCS_REGISTRY_PATH/public/$ARCH/$CPE_VER/cpe-$PRGENV:$CI_COMMIT_SHORT_SHA
     RFM_AUTODETECT_METHODS: "cat /etc/xthostname,hostname"
