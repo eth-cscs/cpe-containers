@@ -30,6 +30,7 @@ RUN rpm --import $RPM_REPO/HPE-RPM-PROD-KEY-FIPS.public \
   && zypper addrepo -f $RPM_REPO/24.07/base/sle/$SLE_VER/aarch64 cpe-2407 \
   && zypper refresh \
   && for i in {1..5} ; do zypper install --recommends -y $PKGS_CRAY && break ; done \
+  && /opt/cray/pe/cpe/$CPE_VER/set_default_release_$CPE_VER.sh \
   && zypper rr cpe cpe-2407
 
 
