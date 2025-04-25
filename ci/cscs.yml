@@ -39,6 +39,8 @@ build cpe gh200:
         "CPE_VER",
         "SLE_VER",
         "RPM_REPO=https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm"
+        "CUDA_RPM_REPO=https://jfrog.svc.cscs/artifactory/cuda/sles15/sbsa"
+        "CUDA_RPM_REPO_KEY=https://jfrog.svc.cscs.ch/artifactory/cuda/sles15/sbsa/D42D0685.pub"
       ]
 
 test cpe gh200:
