@@ -65,4 +65,7 @@ ENV MPICH_GPU_SUPPORT_ENABLED=1
 ENV NVCC_CCBIN=CC
 ENV NVCC_PREPEND_FLAGS="--generate-code=arch=compute_90,code=[compute_90,sm_90]"
 
+# Fix an issue where stubs redundant configuration messed up the ldconfig of containers
+RUN rm /etc/ld.so.conf.d/cuda-stubs.conf
+
 CMD ["/bin/bash", "-l"]
