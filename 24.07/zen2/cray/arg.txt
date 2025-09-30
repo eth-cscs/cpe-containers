@@ -1,0 +1,22 @@
+PKGS_CRAY_ARR=(
+    "${PKGS_CRAY_COMMON_ARR[@]}"
+    "cpe-prgenv-cray"
+    "cce-18.0.0"
+    "cce-18.0.0-devel"
+    "cray-mpich-8.1.30-cray170"
+    "cray-hdf5-1.14.3.1-cray180"
+    "cray-libsci-acc-24.07.0-cray"
+    "cray-netcdf-4.9.0.13-crayclang180"
+    "cray-parallel-netcdf-1.12.3.13-crayclang180"
+    # this system packages are needed for cpe-prgenv-cray
+    "gcc"
+    "gcc-c++"
+    "gcc-fortran"
+)
+
+export DEFAULT_MODULES="craype-x86-rome craype-network-ofi craype xpmem PrgEnv-cray cray-mpich"
+
+# export variables as strings
+export PKGS_SYSTEM="${PKGS_SYSTEM_ARR[*]}"
+export PKGS_CUDA="${PKGS_CUDA_ARR[*]}"
+export PKGS_CRAY="${PKGS_CRAY_ARR[*]}"

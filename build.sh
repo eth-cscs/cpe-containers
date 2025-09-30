@@ -2,6 +2,12 @@
 
 set -e
 
+# allow setting arch with first argument, defaults to gh200
+ARCH=gh200
+if [[ -n "$1" ]] ; then
+    ARCH="$1"
+fi
+
 SCRIPT_DIR=$(dirname $(realpath $0))
 
 if [[ -z $1 ]] ; then
