@@ -23,11 +23,18 @@ RUN if [[ -n "$PKGS_CUDA" ]] ; then \
       && ldconfig \
     ; fi
 
-# install cray programmin environment
+#  && zypper addrepo -f $RPM_REPO/24.07/base/sle/$SLE_VER/aarch64 cpe-2407 \
+# install cray programming environment
+# CPE-24.* has separate repositories for aarch64 and x86_64, while later versions have
+# one `repodata` directory for both architectures, and the package manager picks up the
+# correct packages for the architecture
 ARG PKGS_CRAY
 RUN rpm --import $RPM_REPO/HPE-RPM-PROD-KEY-FIPS.public \
-  && zypper addrepo -f $RPM_REPO/$CPE_VER/base/sle/$SLE_VER cpe \
-  && zypper addrepo -f $RPM_REPO/24.07/base/sle/$SLE_VER/aarch64 cpe-2407 \
+  && if [[ "$SLE_VER" == "24."* ]] ; then \
+        zypper addrepo -f $RPM_REPO/$CPE_VER/base/sle/$SLE_VER/$(uname -m) cpe ; \
+     else \
+        zypper addrepo -f $RPM_REPO/$CPE_VER/base/sle/$SLE_VER cpe ; \
+     fi \
   && zypper refresh \
   && for i in {1..5} ; do zypper install --recommends -y $PKGS_CRAY && break ; done \
   && /opt/cray/pe/cpe/$CPE_VER/set_default_release_$CPE_VER.sh \
