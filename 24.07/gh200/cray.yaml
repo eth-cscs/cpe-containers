@@ -3,6 +3,7 @@ packages:
   - packages/system.yaml
   - packages/cuda-12.6.yaml
   - packages/cpe_2407_common.yaml
+  - packages/cpe_2407_common_gh200.yaml
   - packages/cpe_2407_cray.yaml
   - packages/cpe_2407_cray_gh200.yaml
 additional_repos:

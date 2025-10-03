@@ -3,6 +3,7 @@ packages:
   - packages/system.yaml
   - packages/cuda-12.6.yaml
   - packages/cpe_2407_common.yaml
+  - packages/cpe_2407_common_gh200.yaml
   - packages/cpe_2407_gnu.yaml
 additional_repos:
   - url: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/24.07/base/sle/15.5/aarch64'
