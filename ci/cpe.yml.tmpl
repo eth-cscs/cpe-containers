@@ -1,0 +1,67 @@
+include:
+  - remote: 'https://gitlab.com/cscs-ci/recipes/-/raw/master/templates/v2/.ci-ext.yml'
+
+variables:
+  DEPLOY_TAG: 'latest'
+
+stages:
+  - build
+  - test
+  - deploy
+
+{% for cfg in configs %}
+build {{cfg.name}}:
+  extends: .container-builder-cscs-gh200
+  stage: build
+  before_script:
+    - python3 -m venv /tmp/venv
+    - /tmp/venv/bin/pip install jinja2
+    - /tmp/venv/bin/python3 generate_dockerfile.py {{cfg.path}}
+  variables:
+    DOCKERFILE: Dockerfile.rendered
+    PERSIST_IMAGE_NAME: $CSCS_REGISTRY_PATH/public/{{cfg.architecture}}/{{cfg.cpe_version}}/cpe-{{cfg.prgenv}}:$CI_COMMIT_SHORT_SHA
+
+test {{cfg.name}}:
+  extends: .baremetal-runner-daint-gh200
+  stage: test
+  needs: ['build {{cfg.name}}']
+  script:
+    - time enroot import -o cpe.sqfs docker://$(echo $CPE_CE | sed -e "s|$CSCS_REGISTRY/|$CSCS_REGISTRY#|")
+    - export CPE_CE="$PWD/cpe.sqfs"
+    - git clone -b cpe_ce https://github.com/eth-cscs/cscs-reframe-tests.git
+    - git clone https://github.com/reframe-hpc/reframe.git
+    - cd reframe
+    - ./bootstrap.sh
+    - ./bin/reframe -C ../cscs-reframe-tests/config/cscs.py -c ../cscs-reframe-tests/checks/ -r --prefix=$SCRATCH/gitlab-runner/reframe-testing/rfm-$CI_JOB_ID --report-junit=report.xml -t production -p PrgEnv-ce
+  variables:
+    CPE_CE: $CSCS_REGISTRY_PATH/public/{{cfg.architecture}}/{{cfg.cpe_version}}/cpe-{{cfg.prgenv}}:$CI_COMMIT_SHORT_SHA
+    RFM_AUTODETECT_METHODS: "cat /etc/xthostname,hostname"
+    SLURM_TIMELIMIT: '02:00:00'
+  artifacts:
+    when: always
+    paths:
+      - reframe/report.xml
+    reports:
+      junit: reframe/report.xml
+
+
+deploy {{cfg.name}}:
+  needs: ['test {{cfg.name}}']
+  extends: .container-runner-lightweight-zen2
+  stage: deploy
+  image: "quay.io/skopeo/stable:latest"
+  rules:
+    - if: $CI_COMMIT_REF_NAME != "main"
+      when: manual
+      allow_failure: true
+    - if: $CI_COMMIT_REF_NAME == "main"
+      when: on_success
+  script:
+    - echo "Deploying image under well known location ${TARGET_IMAGE}"
+    - !reference [.fetch-registry-tokens, script]
+    - echo ${CSCS_REGISTRY_PASSWORD} | skopeo login --username ${CSCS_REGISTRY_USER} --password-stdin ${CSCS_REGISTRY}
+    - skopeo copy --multi-arch=all "docker://${FROM_IMAGE}" "docker://${TARGET_IMAGE}"
+  variables:
+    FROM_IMAGE: $CSCS_REGISTRY_PATH/public/{{cfg.architecture}}/{{cfg.cpe_version}}/cpe-{{cfg.prgenv}}:$CI_COMMIT_SHORT_SHA
+    TARGET_IMAGE: "$CSCS_REGISTRY_PATH/public/deploy/{{cfg.architecture}}/{{cfg.cpe_version}}/cpe-{{cfg.prgenv}}:$DEPLOY_TAG"
+{% endfor %}

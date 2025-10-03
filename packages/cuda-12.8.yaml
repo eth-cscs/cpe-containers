@@ -1,0 +1,3 @@
+pkgs:
+  - "cuda-toolkit-12-8"
+

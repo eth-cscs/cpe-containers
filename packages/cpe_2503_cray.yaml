@@ -1,0 +1,10 @@
+pkgs:
+  - "cpe-prgenv-cray"
+  - "cce-19.0.0"
+  - "cce-19.0.0-pgas-ofi"
+  - "cray-mpich-8.1.32-cray170"
+  - "cray-mpich-9.0.0-cray170"
+  - "cray-hdf5-1.14.3.5-cray180"
+  - "cray-libsci-acc-25.03.0-cray"
+  - "cray-netcdf-4.9.0.17-crayclang180"
+  - "cray-parallel-netcdf-1.12.3.17-cray180"
