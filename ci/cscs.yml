@@ -10,7 +10,7 @@ generate-pipeline:
   extends: .container-runner-lightweight-zen2
   image: docker.io/python:3.12
   script:
-    - pip install jinja2
+    - pip install jinja2 pyyaml
     - >
       python3 ci/generate_pipeline.py
       24.07/gh200/gnu.yaml
