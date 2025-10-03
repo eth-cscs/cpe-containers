@@ -24,6 +24,7 @@ generate-pipeline:
 trigger-cpe-build:
   stage: trigger
   trigger:
+    strategy: mirror
     forward:
       pipeline_variables: true
     include:

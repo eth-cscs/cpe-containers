@@ -6,11 +6,9 @@ packages:
   - packages/cpe_2407_cray.yaml
   - packages/cpe_2407_cray_gh200.yaml
 additional_repos:
-  - url: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/25.03/base/sle/15.5'
+  - url: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/24.07/base/sle/15.5/aarch64'
     key: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/HPE-RPM-PROD-KEY-FIPS.public'
     name: 'cpe'
-  - url: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/24.07/base/sle/15.5/aarch64'
-    name: 'cpe-pals-fix'
   - url: 'https://jfrog.svc.cscs.ch/artifactory/cuda/sles15/sbsa'
     key: 'https://jfrog.svc.cscs.ch/artifactory/cuda/sles15/sbsa/D42D0685.pub'
     name: 'cuda'
