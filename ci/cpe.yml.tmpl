@@ -22,7 +22,7 @@ build {{cfg.name}}:
     PERSIST_IMAGE_NAME: $CSCS_REGISTRY_PATH/public/{{cfg.architecture}}/{{cfg.cpe_version}}/cpe-{{cfg.prgenv}}:$CI_COMMIT_SHORT_SHA
 
 test {{cfg.name}}:
-  extends: .baremetal-runner-daint-{{cfg.architecture}}
+  extends: .baremetal-runner-{% if cfg.architecture == "gh200" %}daint-gh200{% else %}eiger-zen2{% endif %}
   stage: test
   needs: ['build {{cfg.name}}']
   script:
