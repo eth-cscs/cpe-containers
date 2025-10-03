@@ -1,0 +1,9 @@
+pkgs:
+  - "cpe-prgenv-gnu"
+  - "cpe-gcc-native-13.2"
+  - "cray-mpich-8.1.32-gnu123"
+  - "cray-mpich-9.0.0-gnu123"
+  - "cray-hdf5-1.14.3.5-gnu123"
+  - "cray-libsci-acc-25.03.0-gnu"
+  - "cray-netcdf-4.9.0.17-gnu123"
+  - "cray-parallel-netcdf-1.12.3.17-gnu123"

@@ -1,0 +1,10 @@
+pkgs:
+ - "vim"
+ - "less"
+ - "cmake"
+ - "make"
+ - "lua-lmod"
+ - "git"
+ - "tar"
+ - "bzip2"
+ - "gzip"

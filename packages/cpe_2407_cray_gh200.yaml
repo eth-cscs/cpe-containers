@@ -1,0 +1,2 @@
+pkgs:
+  - "cce-18.0.0-gpu-nvidia"

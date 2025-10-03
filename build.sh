@@ -4,19 +4,15 @@ set -e
 
 SCRIPT_DIR=$(dirname $(realpath $0))
 
-source 24.07/aarch64/arg_common.txt
+if [[ -z $1 ]] ; then
+    echo "First argument must be a configuration to build e.g. 24.07/gh200/gnu.yaml"
+    exit 1
+fi
 
-for type in gnu cray ; do
-    source 24.07/aarch64/${type}/arg.txt
-    echo -e "Building now with args\nPKGS_SYSTEM=$PKGS_SYSTEM\nPKGS_CUDA=$PKGS_CUDA\nPKGS_CRAY=$PKGS_CRAY\nDEFAULT_MODULES=$DEFAULT_MODULES"
-    podman build \
-        -f Dockerfile \
-        --format docker \
-        --build-arg PKGS_SYSTEM \
-        --build-arg PKGS_CUDA \
-        --build-arg PKGS_CRAY \
-        --build-arg DEFAULT_MODULES \
-        --build-arg RPM_REPO=https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm \
-        -t cpe-${type}:latest \
-        "${SCRIPT_DIR}"
-done
+python3 generate_dockerfile.py "$1"
+
+podman build \
+  -f Dockerfile.rendered \
+  --format docker \
+  -t cpe-$(basename $1 .yaml):latest \
+  "${SCRIPT_DIR}"

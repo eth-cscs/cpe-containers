@@ -1,0 +1,63 @@
+FROM jfrog.svc.cscs.ch/dockerhub/opensuse/leap:{{sle_version}}
+
+RUN {% for repo in additional_repos -%}
+    {% if repo.key %}rpm --import "{{repo.key}}" && \
+    {% endif -%}
+    echo "Adding additional repo {{repo.url}}" && \
+    zypper addrepo -f "{{repo.url}}" "{{repo.name}}" && \
+    {% endfor -%}
+    zypper refresh && \
+    echo "Going to install {{packages | join(' ')}}" && \
+    for i in {1..5} ; do zypper install --recommends -y {{packages | join(' ')}} && break ; done && \
+    {% for repo in additional_repos -%}
+    zypper rr "{{repo.name}}" && \
+    {% endfor -%}
+    zypper clean
+
+{% if with_cuda %}
+RUN echo "/usr/local/cuda/lib64/stubs" > /etc/ld.so.conf.d/cuda-stubs.conf \
+      && ldconfig
+{% endif %}
+
+{% if with_cpe_defaults_pkg %}
+RUN /opt/cray/pe/cpe/{{cpe_version}}/set_default_release_{{cpe_version}}.sh
+{% endif %}
+
+# add xpmem pkgconfig - during runtime CE injects xpmem
+ADD cray-xpmem.pc /usr/lib64/pkgconfig/cray-xpmem.pc
+ADD cray-xpmem.modulefile /opt/cray/modulefiles/xpmem/2.9.6
+# only libxpmem.so.0 is injected - ensure that we link the unversioned one to the injected one
+RUN ln -s /usr/lib64/libxpmem.so.0 /usr/lib64/libxpmem.so
+
+{% if with_cuda %}
+# add cuda module
+ADD cuda.lua /opt/cscs/modulefiles/cuda/unversioned.lua
+RUN mv /opt/cscs/modulefiles/cuda/unversioned.lua /opt/cscs/modulefiles/cuda/$(/usr/local/cuda/bin/nvcc --version | grep release | sed -e 's/.*release \([0-9.]\+\).*/\1/').lua
+{% endif %}
+
+{% if default_modules %}
+# load some modules by default
+RUN echo "module load {{default_modules}}" > /etc/profile.d/zz_default-modules.sh
+{% endif %}
+
+# use programming environment by default
+ENV MODULEPATH=/opt/cray/pe/lmod/modulefiles/craype-targets/default:/opt/cray/pe/lmod/modulefiles/core:/opt/cray/modulefiles:/opt/cscs/modulefiles
+ENV CXX=CC
+ENV CC=cc
+ENV FC=ftn
+ENV F77=ftn
+
+{% if with_cuda %}
+# ensure nvidia driver is mounted by CE
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
+
+# enable GPU-enabled MPI by default
+ENV MPICH_GPU_SUPPORT_ENABLED=1
+
+# Default variableCMake variables for good defaults
+ENV NVCC_CCBIN=CC
+ENV NVCC_PREPEND_FLAGS="--generate-code=arch=compute_90,code=[compute_90,sm_90]"
+{% endif %}
+
+CMD ["/bin/bash", "-l"]
