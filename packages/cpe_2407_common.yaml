@@ -3,7 +3,6 @@ pkgs:
   - "lmod_scripts-3.2.1"
   - "cray-lmod"
   - "cray-modules-3.2.11.7"
-  - "cray-pmi-6.1.15.19"
   - "craype-targets-ex-1.13.2"
   - "cray-mpich-8.1.30-doc"
   - "cray-mpich-8.1.30-gtl"
