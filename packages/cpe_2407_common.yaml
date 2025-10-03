@@ -9,4 +9,3 @@ pkgs:
   - "cray-mpich-8.1.30-gtl"
   - "cray-python-3.11.7"
   - "cray-fftw-3.3.10.8"
-  - "craype-dl-plugin-py3-24.07.1-ex"
