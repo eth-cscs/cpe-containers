@@ -11,7 +11,7 @@ stages:
 
 {% for cfg in configs %}
 build {{cfg.name}}:
-  extends: .container-builder-cscs-gh200
+  extends: .container-builder-cscs-{{cfg.architecture}}
   stage: build
   before_script:
     - python3 -m venv /tmp/venv
@@ -22,7 +22,7 @@ build {{cfg.name}}:
     PERSIST_IMAGE_NAME: $CSCS_REGISTRY_PATH/public/{{cfg.architecture}}/{{cfg.cpe_version}}/cpe-{{cfg.prgenv}}:$CI_COMMIT_SHORT_SHA
 
 test {{cfg.name}}:
-  extends: .baremetal-runner-daint-gh200
+  extends: .baremetal-runner-daint-{{cfg.architecture}}
   stage: test
   needs: ['build {{cfg.name}}']
   script:
