@@ -32,7 +32,7 @@ test {{cfg.name}}:
     - git clone https://github.com/reframe-hpc/reframe.git
     - cd reframe
     - ./bootstrap.sh
-    - ./bin/reframe -C ../cscs-reframe-tests/config/cscs.py -r --prefix=$SCRATCH/gitlab-runner/reframe-testing/rfm-$CI_JOB_ID --report-junit=report.xml --mode=cpe_ce_production
+    - ./bin/reframe -C ../cscs-reframe-tests/config/cscs.py -r --prefix=$SCRATCH/gitlab-runner/reframe-testing/rfm-$CI_JOB_ID --report-junit=report.xml --mode=cpe_ce_production {% if cfg.architecture == "zen2" %}--system=eiger{% endif %}
   variables:
     CPE_CE: $CSCS_REGISTRY_PATH/public/{{cfg.architecture}}/{{cfg.cpe_version}}/cpe-{{cfg.prgenv}}:$CI_COMMIT_SHORT_SHA
     RFM_AUTODETECT_METHODS: "cat /etc/xthostname,hostname"
