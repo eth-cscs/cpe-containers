@@ -28,7 +28,7 @@ test {{cfg.name}}:
   script:
     - time enroot import -o cpe.sqfs docker://$(echo $CPE_CE | sed -e "s|$CSCS_REGISTRY/|$CSCS_REGISTRY#|")
     - export CPE_CE="$PWD/cpe.sqfs"
-    - git clone https://github.com/eth-cscs/cscs-reframe-tests.git
+    - git clone -b add/eiger_cpe_container https://github.com/finkandreas/cscs-reframe-tests.git
     - git clone https://github.com/reframe-hpc/reframe.git
     - cd reframe
     - ./bootstrap.sh
