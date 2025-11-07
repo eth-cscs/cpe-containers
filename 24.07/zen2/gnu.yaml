@@ -4,6 +4,7 @@ packages:
   - packages/cpe_2407_common.yaml
   - packages/cpe_2407_common_zen2.yaml
   - packages/cpe_2407_gnu.yaml
+  - packages/cpe_2407_gnu_zen2.yaml
 additional_repos:
   - url: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/24.07/base/sle/15.5/x86_64'
     key: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/HPE-RPM-PROD-KEY-FIPS.public'

@@ -1,0 +1,6 @@
+pkgs:
+  # these system packages are needed for cpe-prgenv-cray
+  - "gcc"
+  - "gcc-c++"
+  - "gcc-fortran"
+
