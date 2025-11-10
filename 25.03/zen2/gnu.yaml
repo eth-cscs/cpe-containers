@@ -8,4 +8,6 @@ additional_repos:
   - url: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/25.03/base/sle/15.5'
     key: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/HPE-RPM-PROD-KEY-FIPS.public'
     name: 'cpe'
+  - url: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/24.07/base/sle/15.5/x86_64'
+    name: 'cpe-pals-fix'
 default_modules: "craype-x86-rome craype-network-ofi craype xpmem PrgEnv-gnu cray-mpich"
