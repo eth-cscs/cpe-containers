@@ -15,9 +15,11 @@ generate-pipeline:
     # automatically comments all others
     - >
       python3 ci/generate_pipeline.py
-      24.07/zen2/gnu.yaml
+      25.03/zen2/gnu.yaml
+      25.03/zen2/cray.yaml
+      #24.07/zen2/gnu.yaml
       24.07/zen2/cray.yaml
-      #24.07/gh200/gnu.yaml
+      24.07/gh200/gnu.yaml
       24.07/gh200/cray.yaml
       25.03/gh200/gnu.yaml
       25.03/gh200/cray.yaml
