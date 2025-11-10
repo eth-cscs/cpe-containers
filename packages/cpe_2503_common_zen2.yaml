@@ -1,2 +1,3 @@
-pkgs:
-  - "craype-dl-plugin-py3-23.09.1-shasta"
+pkgs: []
+  # sha256sum mismatch on craype-dl-plugin-py3
+  # - "craype-dl-plugin-py3-24.03.1-shasta" 
