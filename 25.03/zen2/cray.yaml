@@ -11,6 +11,7 @@ additional_repos:
     name: 'cpe'
   - url: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/24.07/base/sle/15.5/x86_64'
     name: 'cpe-pals-fix'
+    priority: 100
   - url: 'https://jfrog.svc.cscs.ch/artifactory/opensuse-15.5'
     name: 'jfrog-opensuse-15.5'
     gpg_ignore: true
