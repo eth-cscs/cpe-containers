@@ -13,4 +13,5 @@ additional_repos:
     name: 'cpe-pals-fix'
   - url: 'https://jfrog.svc.cscs.ch/artifactory/opensuse-15.6'
     name: 'jfrog-opensuse-15.6' # workaround a broken dependency in gcc14-gfortran
+    gpg_ignore: true
 default_modules: "craype-x86-rome craype-network-ofi craype xpmem PrgEnv-cray cray-mpich"
