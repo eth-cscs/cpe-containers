@@ -4,7 +4,7 @@ RUN {% for repo in additional_repos -%}
     {% if repo.key %}rpm --import "{{repo.key}}" && \
     {% endif -%}
     echo "Adding additional repo {{repo.url}}" && \
-    zypper addrepo -f "{{repo.url}}" "{{repo.name}}" && \
+    zypper addrepo -f {%if repo.gpg_ignore %}--no-gpgcheck{% endif %}{% if repo.priority %} --priority {{repo.priority}}{% endif %} "{{repo.url}}" "{{repo.name}}" && \
     {% endfor -%}
     zypper refresh && \
     echo "Going to install {{packages | join(' ')}}" && \

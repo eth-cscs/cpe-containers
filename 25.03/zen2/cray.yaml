@@ -1,0 +1,23 @@
+sle_version: 15.5
+packages:
+  - packages/system.yaml
+  - packages/cpe_2503_common.yaml
+  - packages/cpe_2503_common_zen2.yaml
+  - packages/cpe_2503_cray.yaml
+  - packages/cpe_2503_cray_zen2.yaml
+additional_repos:
+  - url: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/25.03/base/sle/15.5'
+    key: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/HPE-RPM-PROD-KEY-FIPS.public'
+    name: 'cpe'
+  - url: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/24.07/base/sle/15.5/x86_64'
+    name: 'cpe-pals-fix'
+    priority: 100
+  - url: 'https://jfrog.svc.cscs.ch/artifactory/opensuse-15.5'
+    name: 'jfrog-opensuse-15.5'
+    gpg_ignore: true
+    priority: 50
+  - url: 'https://jfrog.svc.cscs.ch/artifactory/opensuse-15.6'
+    name: 'jfrog-opensuse-15.6' # workaround a broken dependency in gcc14-gfortran
+    gpg_ignore: true
+    priority: 100
+default_modules: "craype-x86-rome craype-network-ofi craype xpmem PrgEnv-cray cray-mpich"

@@ -3,6 +3,7 @@ packages:
   - packages/system.yaml
   - packages/cuda-12.8.yaml
   - packages/cpe_2503_common.yaml
+  - packages/cpe_2503_common_gh200.yaml
   - packages/cpe_2503_gnu.yaml
 additional_repos:
   - url: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/25.03/base/sle/15.5'
@@ -10,6 +11,7 @@ additional_repos:
     name: 'cpe'
   - url: 'https://jfrog.svc.cscs.ch/artifactory/proxy-hpe-rpm/24.07/base/sle/15.5/aarch64'
     name: 'cpe-pals-fix'
+    priority: 100
   - url: 'https://jfrog.svc.cscs.ch/artifactory/cuda/sles15/sbsa'
     key: 'https://jfrog.svc.cscs.ch/artifactory/cuda/sles15/sbsa/D42D0685.pub'
     name: 'cuda'

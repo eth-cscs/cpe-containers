@@ -1,0 +1,6 @@
+pkgs:
+  - "cce-18.0.0-devel"
+  # these system packages are needed for cpe-prgenv-cray
+  - "gcc"
+  - "gcc-c++"
+  - "gcc-fortran"

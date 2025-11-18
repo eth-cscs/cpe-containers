@@ -11,7 +11,7 @@ stages:
 
 {% for cfg in configs %}
 build {{cfg.name}}:
-  extends: .container-builder-cscs-gh200
+  extends: .container-builder-cscs-{{cfg.architecture}}
   stage: build
   before_script:
     - python3 -m venv /tmp/venv
@@ -22,7 +22,7 @@ build {{cfg.name}}:
     PERSIST_IMAGE_NAME: $CSCS_REGISTRY_PATH/public/{{cfg.architecture}}/{{cfg.cpe_version}}/cpe-{{cfg.prgenv}}:$CI_COMMIT_SHORT_SHA
 
 test {{cfg.name}}:
-  extends: .baremetal-runner-daint-gh200
+  extends: .baremetal-runner-{% if cfg.architecture == "gh200" %}daint-gh200{% else %}eiger-zen2{% endif %}
   stage: test
   needs: ['build {{cfg.name}}']
   script:
@@ -32,7 +32,7 @@ test {{cfg.name}}:
     - git clone https://github.com/reframe-hpc/reframe.git
     - cd reframe
     - ./bootstrap.sh
-    - ./bin/reframe -C ../cscs-reframe-tests/config/cscs.py -r --prefix=$SCRATCH/gitlab-runner/reframe-testing/rfm-$CI_JOB_ID --report-junit=report.xml --mode=cpe_ce_production
+    - ./bin/reframe -C ../cscs-reframe-tests/config/cscs.py -r --prefix=$SCRATCH/gitlab-runner/reframe-testing/rfm-$CI_JOB_ID --report-junit=report.xml --mode=cpe_ce_production {% if cfg.architecture == "zen2" %}--system=eiger{% endif %}
   variables:
     CPE_CE: $CSCS_REGISTRY_PATH/public/{{cfg.architecture}}/{{cfg.cpe_version}}/cpe-{{cfg.prgenv}}:$CI_COMMIT_SHORT_SHA
     RFM_AUTODETECT_METHODS: "cat /etc/xthostname,hostname"

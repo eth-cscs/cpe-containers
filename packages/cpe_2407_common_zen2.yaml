@@ -1,0 +1,3 @@
+pkgs:
+  - "cray-pmi-6.1.15.21"
+  - "craype-dl-plugin-py3-24.03.1-shasta"
